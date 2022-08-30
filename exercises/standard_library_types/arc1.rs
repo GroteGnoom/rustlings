@@ -18,14 +18,12 @@
 // where the second TODO comment is. Try not to create any copies of the `numbers` Vec!
 // Execute `rustlings hint arc1` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 #![forbid(unused_imports)] // Do not change this, (or the next) line.
 use std::sync::Arc;
 use std::thread;
 
 fn main() {
-    let numbers: Vec<_> = (0..100u32).collect();
+    let numbers: Vec<u32> = (0..100).collect();
     let shared_numbers = Arc::new(numbers);
     let mut joinhandles = Vec::new();
 
