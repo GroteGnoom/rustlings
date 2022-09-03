@@ -23,8 +23,6 @@ enum IntoColorError {
     IntConversion,
 }
 
-// I AM NOT DONE
-
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
 // You need to create an implementation for a tuple of three integers,
@@ -38,6 +36,17 @@ enum IntoColorError {
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        if tuple.0 > 256 || tuple.0 < 0 { //TODO nicer?
+            return Err(IntoColorError::IntConversion);
+        }
+        if tuple.1 > 256 || tuple.1 < 0 {
+            return Err(IntoColorError::IntConversion);
+        }
+        if tuple.2 > 256 || tuple.2 < 0 {
+            return Err(IntoColorError::IntConversion);
+        }
+        let (a, b, c): (u8, u8, u8) = (tuple.0 as u8, tuple.1 as u8, tuple.2 as u8);
+        return Ok(Color{red: a, green: b, blue: c});
     }
 }
 
@@ -45,6 +54,18 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        if arr[0] > 256 || arr[0] < 0 { //TODO nicer!
+            return Err(IntoColorError::IntConversion);
+        }
+        if arr[1] > 256 || arr[1] < 0 {
+            return Err(IntoColorError::IntConversion);
+        }
+        if arr[2] > 256 || arr[2] < 0 {
+            return Err(IntoColorError::IntConversion);
+        }
+        let (a, b, c): (u8, u8, u8) = (arr[0] as u8, arr[1] as u8, arr[2] as u8);
+        //TODO can be done much nicer probably
+        return Ok(Color{red: a, green: b, blue: c});
     }
 }
 
@@ -52,6 +73,21 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = IntoColorError;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        if slice.len() != 3 {
+            return Err(IntoColorError::BadLen);
+        }
+        if slice[0] > 256 || slice[0] < 0 { //TODO nicer!
+            return Err(IntoColorError::IntConversion);
+        }
+        if slice[1] > 256 || slice[1] < 0 {
+            return Err(IntoColorError::IntConversion);
+        }
+        if slice[2] > 256 || slice[2] < 0 {
+            return Err(IntoColorError::IntConversion);
+        }
+        let (a, b, c): (u8, u8, u8) = (slice[0] as u8, slice[1] as u8, slice[2] as u8);
+        //TODO can be done much nicer probably
+        return Ok(Color{red: a, green: b, blue: c});
     }
 }
 
